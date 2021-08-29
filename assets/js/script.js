@@ -18,8 +18,10 @@ var taskFormHandler = function(event) {
 
     if (!taskNameInput || !taskTypeInput) {
         alert("You need to fill out the task form!");
+        return false;
     }
 
+    // Resets the Task Name and Type Input
     formEl.reset();
 
     var isEdit = formEl.hasAttribute("data-task-id");
@@ -242,24 +244,18 @@ var saveTasks = function() {
 }
 
 var loadTasks = function() {
-    //Gets task items from localStorage
 
-    //Converts tasks from the string format back into an array of objects
-
-    //Iterates through a tasks array and creates task elements on the page from it
-    var savedTasks = localStorage.getItem('tasks');
+    var savedTasks = localStorage.getItem("tasks");
 
     if (!savedTasks) {
-        
         return false;
     }
 
+    console.log("Saved tasks found!");
+
     savedTasks = JSON.parse(savedTasks);
 
-    console.log(tasks);
     for (var i = 0; i < savedTasks.length; i++) {
-        console.log(tasks[taskIdCounter])
-        console.log(tasks[i]);
         
         createTaskEl(savedTasks[i]);
     }
@@ -269,3 +265,5 @@ var loadTasks = function() {
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
+loadTasks();
